@@ -1,0 +1,1 @@
+ build\\web\\manifest.json:  C:\\Users\\cjric\\StudioProjects\\GitHub\\stained_glass\\web\\index.html C:\\Users\\cjric\\StudioProjects\\GitHub\\stained_glass\\web\\manifest.json

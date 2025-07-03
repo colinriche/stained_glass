@@ -1,0 +1,21 @@
+Stained Glass Solo Grid game for browser game and flutter app
+
+Stained Glass is a single-player puzzle game based on colour combinations.
+
+At the start of the game the player is presented with an x x x grid of coloured tiles, the object is to clear the board of all but one tile using some basic rules:
+
+If two adjacent tiles are of the same colour then one tile can be moved onto another replacing it and leaving a blank cell.
+
+If three adjacent tiles are of the same colour then tile one can jump over tile two to land on tile three leaving cells one and two empty (it works the same it tile three jumps to tile one).
+
+If a primary colour (that's blue, red or yellow) jumps over a secondary colour (that's violet, orange or green) which contains the primary colour then the secondary coloured tile is reduced to a primary colour. Sounds complex but in practice it's easy If a red tile jumps over a violet tile then the violet tile turns blue because violet = red + blue.
+
+The fourth and final move is sort of the reverse of the previous move in that it combines primary colours. Here if there are three dissimilar adjacent primary colours then tile one can jump to tile three leaving cells one and two empty and a secondary colour in cell three (again it works when cell three jumps to cell one too). So if cell one was red, cell two was red/blue/yellow and cell three was blue jumping tile one to cell three would result in two empty cells and a violet tile in cell three.
+
+Secondary colours can jump in the same way jumping a secondary colour onto the right primary colour will produce a white tile because the result will combine all three primary colours. The following sentence comes from the documentation which shows the potential complexity of the game: The last four move elements can combine to provide complex results; if you jump a red pane over an orange pane to land on a blue pane, the red pane disappears, the orange pane turns yellow (orange minus red) and the blue pane turns violet (blue plus red).
+Fortunately during the game available legal moves are highlighted which makes learning the game much easier.
+
+Other gameplay points worthy of note, it is possible to jump into an empty cell; each move is independent so, for example, move two does not have to star where move one finished; diagonal jumps are allowed.
+
+The game has save and undo features and a panic button
+

@@ -1,0 +1,11 @@
+{
+    "name": "Stained Glass",
+    "short_name": "Stained Glass",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#667eea",
+    "theme_color": "#667eea",
+    "description": "A modern Flutter implementation of the classic Stained Glass puzzle game",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false
+} 

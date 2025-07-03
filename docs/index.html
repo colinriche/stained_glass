@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="./">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A modern Flutter implementation of the classic Stained Glass puzzle game">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Stained Glass">
+
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Stained Glass - Puzzle Game</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    var serviceWorkerVersion = '"2910916386"';
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+      margin-top: 20px;
+      color: white;
+      font-size: 18px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Loading Stained Glass...</div>
+  </div>
+
+  <script>
+    // Configure Flutter to use HTML renderer instead of CanvasKit
+    window.flutterConfiguration = {
+      canvasKitBaseUrl: null,
+      renderer: 'html'
+    };
+
+    // Wait for both DOM and Flutter to be ready
+    function initializeFlutter() {
+      if (typeof _flutter !== 'undefined') {
+        _flutter.loader.loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: '"2910916386"',
+          },
+          onEntrypointLoaded: function(engineInitializer) {
+            engineInitializer.initializeEngine().then(function(appRunner) {
+              document.getElementById('loading').style.display = 'none';
+              appRunner.runApp();
+            });
+          }
+        });
+      } else {
+        // Retry after a short delay
+        setTimeout(initializeFlutter, 100);
+      }
+    }
+
+    window.addEventListener('load', function(ev) {
+      initializeFlutter();
+    });
+  </script>
+</body>
+</html> 
