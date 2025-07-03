@@ -13,11 +13,24 @@ class GameGrid extends StatelessWidget {
       builder: (context, gameProvider, child) {
         final gameState = gameProvider.gameState;
         final screenWidth = MediaQuery.of(context).size.width;
-        final maxGridWidth = screenWidth * 0.45; // 45% of screen width
+        final screenHeight = MediaQuery.of(context).size.height;
+        final isSmallScreen = screenHeight < 700;
+        final isVerySmallScreen = screenHeight < 600;
+        
+        // Calculate grid size based on screen dimensions
+        double maxGridWidth;
+        if (isVerySmallScreen) {
+          maxGridWidth = screenWidth * 0.85; // 85% on very small screens
+        } else if (isSmallScreen) {
+          maxGridWidth = screenWidth * 0.7; // 70% on small screens
+        } else {
+          maxGridWidth = screenWidth * 0.5; // 50% on larger screens
+        }
+        
         final tileSize = (maxGridWidth / gameState.gridSize) - 4;
         
         return Container(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(isSmallScreen ? 8 : 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             gradient: LinearGradient(
@@ -79,7 +92,7 @@ class GameGrid extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: isSmallScreen ? 8 : 12),
               
               // Game grid
               Container(

@@ -46,35 +46,41 @@ class _GameScreenState extends State<GameScreen> {
               return LayoutBuilder(
                 builder: (context, constraints) {
                   final isSmallScreen = constraints.maxHeight < 700;
+                  final isVerySmallScreen = constraints.maxHeight < 600;
                   
-                                return Center(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: constraints.maxWidth * 0.5, // 50% of screen width
-                  ),
-                  child: SingleChildScrollView(
+                  return SingleChildScrollView(
                     padding: EdgeInsets.all(isSmallScreen ? 8 : 16),
-                    child: Column(
-                      children: [
-                        // Header
-                        _buildHeader(context, gameProvider, isSmallScreen),
-                        SizedBox(height: isSmallScreen ? 12 : 24),
-                        
-                        // Game Grid
-                        const GameGrid(),
-                        SizedBox(height: isSmallScreen ? 12 : 24),
-                        
-                        // Game Controls
-                        _buildGameControls(context, gameProvider, isSmallScreen),
-                        SizedBox(height: isSmallScreen ? 8 : 16),
-                        
-                        // Game Rules Button
-                        _buildRulesButton(context, isSmallScreen),
-                      ],
+                    child: Center(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: isVerySmallScreen 
+                              ? constraints.maxWidth * 0.95  // 95% on very small screens
+                              : isSmallScreen 
+                                  ? constraints.maxWidth * 0.8  // 80% on small screens
+                                  : constraints.maxWidth * 0.6, // 60% on larger screens
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Header
+                            _buildHeader(context, gameProvider, isSmallScreen),
+                            SizedBox(height: isSmallScreen ? 8 : 16),
+                            
+                            // Game Grid
+                            const GameGrid(),
+                            SizedBox(height: isSmallScreen ? 8 : 16),
+                            
+                            // Game Controls
+                            _buildGameControls(context, gameProvider, isSmallScreen),
+                            SizedBox(height: isSmallScreen ? 8 : 16),
+                            
+                            // Game Rules Button
+                            _buildRulesButton(context, isSmallScreen),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              );
+                  );
                 },
               );
             },
@@ -85,8 +91,9 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Widget _buildHeader(BuildContext context, GameProvider gameProvider, [bool isSmallScreen = false]) {
+    final isVerySmallScreen = MediaQuery.of(context).size.height < 600;
     return Container(
-      padding: EdgeInsets.all(isSmallScreen ? 12 : 20),
+      padding: EdgeInsets.all(isVerySmallScreen ? 8 : (isSmallScreen ? 12 : 20)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         gradient: LinearGradient(
