@@ -14,7 +14,7 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="/">
+  <base href="./">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -34,10 +34,10 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = '"1962894950"';
+    var serviceWorkerVersion = '"522713193"';
   </script>
   <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
+  <script src="flutter.js"></script>
 
   <style>
     body {
@@ -90,18 +90,28 @@
       renderer: 'html'
     };
 
+    // Wait for both DOM and Flutter to be ready
+    function initializeFlutter() {
+      if (typeof _flutter !== 'undefined') {
+        _flutter.loader.loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: '"522713193"',
+          },
+          onEntrypointLoaded: function(engineInitializer) {
+            engineInitializer.initializeEngine().then(function(appRunner) {
+              document.getElementById('loading').style.display = 'none';
+              appRunner.runApp();
+            });
+          }
+        });
+      } else {
+        // Retry after a short delay
+        setTimeout(initializeFlutter, 100);
+      }
+    }
+
     window.addEventListener('load', function(ev) {
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: '"1962894950"',
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            document.getElementById('loading').style.display = 'none';
-            appRunner.runApp();
-          });
-        }
-      });
+      initializeFlutter();
     });
   </script>
 </body>
